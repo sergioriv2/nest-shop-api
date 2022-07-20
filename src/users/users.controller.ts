@@ -67,12 +67,14 @@ export class UsersController {
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'), AdminGuard)
   async remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+    const results = this.usersService.remove(id);
+    return { results };
   }
 
   @Delete()
   @UseGuards(AuthGuard('jwt'), UserGuard)
   async removeLocalUser(@Request() req) {
-    return this.usersService.remove(req.user.id);
+    const results = this.usersService.remove(req.user.id);
+    return { results };
   }
 }
